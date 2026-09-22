@@ -2,9 +2,12 @@ class HelloWorld;
     function void print_hello();
         $display("Hello World from a SystemVerilog Class!");
     endfunction
+    function new();
+        $display("The helloworld class is ready");
+    endfunction
 endclass
 
-module top ();
+module hw ();
 	initial begin
         HelloWorld hw = new();
         hw.print_hello();
