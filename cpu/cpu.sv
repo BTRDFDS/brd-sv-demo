@@ -1,12 +1,20 @@
 class Cpu;
+	logic [4:0] rd,r1,r2;
+	logic [31:0] immU,immJ,immI,immB,immS;
 	function void print_hello();
 		$display("Hello World from a SystemVerilog Class!");
 	endfunction
-	function void step(logic [7:0] instr);
+	function logic [31:0] gprRead(logic[6:0] addr);
+		return 0;
+	endfunction
+	function void step(logic [31:0] instr);
+		r2=instr[24:20];
+		r1=instr[19:15];
+		rd=instr[11: 7];
+		immU=0;
 		case(instr)inside
-			8'b10??????:$display("111");
-			8'b11??????:$display("222");
-			default:$display("333");
+			32'b???????_?????_?????_???_?????_0110111:begin end
+			default:$display("unknow");
 		endcase
 	endfunction
 	function new();
@@ -19,10 +27,7 @@ module top ();
 		Cpu cpu = new();
 		cpu.print_hello();
 		#10 $display("%t hello world",$time);
-		#10 cpu.step(8'b11000000);
-		#10 cpu.step(8'b10000000);
-		#10 cpu.step(8'b01000000);
-		#10 cpu.step(8'b00000000);
+		#10 cpu.step(32'b00000000);
 		$finish();
 	end
 endmodule
